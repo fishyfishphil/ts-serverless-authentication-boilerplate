@@ -1,10 +1,10 @@
-const { utils, config } = require('serverless-authentication')
-const AWS = require('aws-sdk')
-const nock = require('nock')
-const url = require('url')
-const refreshHandler = require('../authentication/lib/handlers/refreshHandler')
-const callbackHandler = require('../authentication/lib/handlers/callbackHandler')
-const signinHandler = require('../authentication/lib/handlers/signinHandler')
+import { utils, config } from 'ts-serverless-authentication')
+import * as AWS from 'aws-sdk';
+import * as nock from 'nock';
+import * as url from 'url';
+import * as refreshHandler from '../authentication/lib/handlers/refreshHandler';
+import * as callbackHandler from '../authentication/lib/handlers/callbackHandler';
+import * as signinHandler from '../authentication/lib/handlers/signinHandler';
 
 jest.mock('aws-sdk', () => {
   const mocks = {
