@@ -1,6 +1,6 @@
 {
   "name": "ts-serverless-authentication-boilerplate",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Boilerplate for Serverless Authentication",
   "author": "Aaron Edwards and Eetu Tuomala (https://laardee.com)",
   "license": "MIT",
