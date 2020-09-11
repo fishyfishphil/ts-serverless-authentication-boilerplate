@@ -1,22 +1,14 @@
 # Serverless Authentication
 
-[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
-
-[![Build Status](https://travis-ci.org/laardee/serverless-authentication-boilerplate.svg?branch=master)](https://travis-ci.org/laardee/serverless-authentication-boilerplate)
-
 This project is aimed to be a generic authentication boilerplate for the [Serverless framework](http://www.serverless.com).
 
 This boilerplate is compatible with the Serverless v.1.30.3+, to install Serverless framework run `npm install -g serverless`.
-
-Web app demo that uses this boilerplate: http://laardee.github.io/serverless-authentication-gh-pages
-
-If you are using Serverless framework v.0.5, see branch https://github.com/laardee/serverless-authentication-boilerplate/tree/serverless-0.5
 
 ## Installation
 
 The installation will create one DynamoDB table for OAuth state and refresh tokens.
 
-1. Run `serverless install --url https://github.com/laardee/serverless-authentication-boilerplate`, clone or download the repository
+1. Run `serverless install --url https://github.com/SansDeus/ts-serverless-authentication-boilerplate`, clone or download the repository
 2. Change directory to `authentication` and rename _example.env.yml_ in _authentication_ to _env.yml_ and set [environmental variables](#env-vars).
 3. Run `npm install`.
 4. Run `serverless deploy` on the authentication folder to deploy authentication service to AWS.
@@ -106,7 +98,7 @@ dev:
 
 ## <a id="custom-provider"></a>Custom Provider
 
-Package contains example [/authentication/lib/custom-google.js](https://github.com/laardee/serverless-authentication-boilerplate/blob/master/authentication/lib/custom-google.js) how to implement a custom authentication provider using generic Provider class. To test custom provider go to http://laardee.github.io/serverless-authentication-gh-pages and click 'custom-google' button.
+Package contains example [/authentication/lib/custom-google.js](https://github.com/SansDeus/ts-serverless-authentication-boilerplate/blob/master/authentication/lib/custom-google.js) how to implement a custom authentication provider using generic Provider class. To test custom provider go to http://laardee.github.io/serverless-authentication-gh-pages and click 'custom-google' button.
 
 ## User database
 
