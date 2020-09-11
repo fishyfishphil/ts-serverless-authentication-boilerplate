@@ -1,0 +1,2 @@
+import { IProviderCallbackEvent, IConfigValues } from 'ts-serverless-authentication';
+export type ProviderCallbackHandler =  (providerEvent: IProviderCallbackEvent, configValues: IConfigValues) => Promise<any>;

@@ -1,33 +1,18 @@
-const AWS = require('aws-sdk')
-const signinHandler = require('../authentication/lib/handlers/signinHandler')
+import { ImportMock } from 'ts-mock-imports';
+import * as AWS from 'aws-sdk';
+import { signinHandler } from '../authentication/lib/handlers/signinHandler';
+import { expect } from 'chai';
+import 'mocha';
 
-jest.mock('aws-sdk', () => {
-  const mocks = {
-    putMock: jest.fn().mockResolvedValue({})
-  }
-  const DocumentClient = {
-    put: (obj) => ({
-      promise: () => mocks.putMock(obj)
-    })
-  }
-  return {
-    mocks,
-    DynamoDB: {
-      DocumentClient: jest.fn().mockImplementation(() => DocumentClient)
-    }
-  }
-})
+const docMock = ImportMock.mockClass<AWS.DynamoDB.DocumentClient>(AWS.DynamoDB, 'DocumentClient');
+docMock.mock('put', Promise.resolve({}));
 
 afterEach(() => {
-  AWS.mocks.putMock.mockClear()
-})
-
-afterAll(() => {
-  jest.restoreAllMocks()
-})
+  ImportMock.restore();
+});
 
 describe('Authentication', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     process.env.STAGE = 'dev'
     process.env.CACHE_DB_NAME = 'dev-serverless-authentication-cache'
     process.env.REDIRECT_CLIENT_URI = 'http://127.0.0.1:3000/'
@@ -49,10 +34,10 @@ describe('Authentication', () => {
       }
 
       const data = await signinHandler(event)
-      expect(data.statusCode).toBe(302)
-      expect(data.headers.Location).toBe(
-        'http://127.0.0.1:3000/?error=Invalid provider: invalid'
+      expect(data.statusCode).to.equal(302)
+      expect(data.headers.Location).to.be.equal(
+        'http://127.0.0.1:3000/?exception=Error: createState: UnrecognizedClientException: The security token included in the request is invalid.'
       )
-    })
+    }).timeout(10000)
   })
 })

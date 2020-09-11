@@ -1,9 +1,10 @@
-const { utils, config } = require('serverless-authentication')
-
-const authorize = require('../authentication/lib/handlers/authorizeHandler')
+import { utils, config } from 'ts-serverless-authentication';
+import {authorize} from '../authentication/lib/handlers/authorizeHandler';
+import { expect } from 'chai';
+import 'mocha';
 
 describe('Authorization', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     process.env.STAGE = 'dev'
     process.env.CACHE_DB_NAME = 'dev-serverless-authentication-cache'
     process.env.REDIRECT_CLIENT_URI = 'http://127.0.0.1:3000/'
@@ -16,7 +17,7 @@ describe('Authorization', () => {
       const providerConfig = config({ provider: '', stage: 'dev' })
       const authorizationToken = utils.createToken(
         payload,
-        providerConfig.token_secret
+        providerConfig.token_secret || ''
       )
       const event = {
         type: 'TOKEN',
@@ -26,7 +27,7 @@ describe('Authorization', () => {
       }
 
       const data = await authorize(event)
-      expect(data.principalId).toBe(payload.id)
+      expect(data.principalId).to.be.equal(payload.id)
     })
   })
 })

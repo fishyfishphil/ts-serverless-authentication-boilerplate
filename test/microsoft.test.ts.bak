@@ -1,4 +1,4 @@
-const { utils, config } = require('serverless-authentication')
+const { utils, config } = require('ts-serverless-authentication')
 const AWS = require('aws-sdk')
 const nock = require('nock')
 const url = require('url')

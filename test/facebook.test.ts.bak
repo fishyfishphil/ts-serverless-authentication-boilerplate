@@ -1,10 +1,10 @@
-const { utils, config } = require('serverless-authentication')
-const AWS = require('aws-sdk')
-const nock = require('nock')
-const url = require('url')
-const refreshHandler = require('../authentication/lib/handlers/refreshHandler')
-const callbackHandler = require('../authentication/lib/handlers/callbackHandler')
-const signinHandler = require('../authentication/lib/handlers/signinHandler')
+import { utils, config } from 'ts-serverless-authentication';
+import * as AWS from 'aws-sdk';
+import * as nock from 'nock';
+import * as url from 'url';
+import {refreshHandler} from '../authentication/lib/handlers/refreshHandler';
+import {callbackHandler} from '../authentication/lib/handlers/callbackHandler';
+import {signinHandler} from '../authentication/lib/handlers/signinHandler';
 
 jest.mock('aws-sdk', () => {
   const mocks = {
@@ -30,28 +30,28 @@ jest.mock('aws-sdk', () => {
   }
 
   const DocumentClient = {
-    get: (obj) => ({
+    get: (obj: any) => ({
       promise: () => mocks.getMock(obj)
     }),
-    put: (obj) => ({
+    put: (obj: any) => ({
       promise: () => mocks.putMock(obj)
     }),
-    query: (obj) => ({
+    query: (obj: any) => ({
       promise: () => mocks.queryMock(obj)
     }),
-    update: (obj) => ({
+    update: (obj: any) => ({
       promise: () => mocks.updateMock(obj)
     })
   }
 
   const CognitoIdentityServiceProvider = {
-    adminCreateUser: (obj) => ({
+    adminCreateUser: (obj: any) => ({
       promise: () => mocks.adminCreateUserMock(obj)
     }),
-    adminUpdateUserAttributes: (obj) => ({
+    adminUpdateUserAttributes: (obj: any) => ({
       promise: () => mocks.adminUpdateUserAttributesMock(obj)
     }),
-    adminGetUser: (obj) => ({
+    adminGetUser: (obj: any) => ({
       promise: () => mocks.adminGetUserMock(obj)
     })
   }
@@ -67,15 +67,15 @@ jest.mock('aws-sdk', () => {
   }
 })
 
-afterEach(() => {
-  AWS.mocks.getMock.mockClear()
-  AWS.mocks.putMock.mockClear()
-  AWS.mocks.queryMock.mockClear()
-  AWS.mocks.updateMock.mockClear()
-  AWS.mocks.adminCreateUserMock.mockClear()
-  AWS.mocks.adminUpdateUserAttributesMock.mockClear()
-  AWS.mocks.adminGetUserMock.mockClear()
-})
+// afterEach(() => {
+//   AWS.mocks.getMock.mockClear()
+//   AWS.mocks.putMock.mockClear()
+//   AWS.mocks.queryMock.mockClear()
+//   AWS.mocks.updateMock.mockClear()
+//   AWS.mocks.adminCreateUserMock.mockClear()
+//   AWS.mocks.adminUpdateUserAttributesMock.mockClear()
+//   AWS.mocks.adminGetUserMock.mockClear()
+// })
 
 afterAll(() => {
   jest.restoreAllMocks()

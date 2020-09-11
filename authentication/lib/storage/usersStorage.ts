@@ -1,16 +1,12 @@
-
-
-// Common
-const Promise = require('bluebird')
-
-const cognitoUser = require('./cognito/cognitoUser')
+// const cognitoUser = require('./cognito/cognitoUser')
 const dynamoUser = require('./dynamo/dynamoUser')
-const faunaUser = require('./fauna/faunaUser')
-
-const saveUser = async (profile) => {
+// const faunaUser = require('./fauna/faunaUser')
+import { Profile } from 'ts-serverless-authentication';
+export async function saveUser(profile: Profile) {
   if (!profile) {
-    return Promise.reject(new Error('Invalid profile'))
+    throw new Error('Invalid profile');
   }
+
   // Here you can save the profile to DynamoDB,
   // FaunaDB, AWS Cognito or where ever you wish,
   // just remove or replace unnecessary code
@@ -20,14 +16,10 @@ const saveUser = async (profile) => {
   // return faunaUser.saveUser(profile)
 
   // to use dynamo as user database enable
-  // return dynamoUser.saveUser(profile)
+  return dynamoUser.saveUser(profile);
 
   // to use cognito user pool as user database enable
   // return cognitoUser.saveOrUpdateUser(profile);
 
-  return Promise.resolve(true)
-}
-
-module.exports = {
-  saveUser
+  // return true;
 }

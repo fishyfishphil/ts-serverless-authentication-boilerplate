@@ -1,13 +1,9 @@
-
-
-const AWS = require('aws-sdk')
-
-const { log } = require('../../helpers')
+import * as AWS from 'aws-sdk';
 
 const cognitoIdentityServiceProvider =
-  new AWS.CognitoIdentityServiceProvider()
+  new AWS.CognitoIdentityServiceProvider();
 
-const getUserAttributes = (profile) => {
+const getUserAttributes = (profile: any) => {
   const attributes = [
     'address',
     'birthdate',
@@ -25,20 +21,16 @@ const getUserAttributes = (profile) => {
     'profile',
     'timezone',
     'website'
-  ]
+  ];
 
-  return attributes.reduce((result, key) => {
-    if (Object.prototype.hasOwnProperty.call(profile, key)) {
-      result.push({ Name: key, Value: profile[key] })
-    }
-    return result
-  }, [])
+  return attributes.filter((key: string) => {
+    return Object.prototype.hasOwnProperty.call(profile, key);
+  }).map((v) => {return { Name: v, Value: profile[v] }});
 }
 
-const saveUser = (profile) => {
-  log('save user', profile.id)
+const saveUser = async (profile: any) => {
   const params = {
-    UserPoolId: process.env.USER_POOL_ID,
+    UserPoolId: process.env.USER_POOL_ID || '',
     Username: profile.userId,
     DesiredDeliveryMediums: [
       'EMAIL'
@@ -47,29 +39,28 @@ const saveUser = (profile) => {
     MessageAction: 'SUPPRESS',
     TemporaryPassword: 'tempPassword1!',
     UserAttributes: getUserAttributes(profile)
-  }
+  };
 
-  return cognitoIdentityServiceProvider
-    .adminCreateUser(params).promise()
+  return await cognitoIdentityServiceProvider
+    .adminCreateUser(params).promise();
 }
 
-const updateUser = (profile) => {
-  log('update user', profile.id)
+const updateUser = async (profile: any) => {
   const params = {
     UserAttributes: getUserAttributes(profile),
-    UserPoolId: process.env.USER_POOL_ID,
+    UserPoolId: process.env.USER_POOL_ID || '',
     Username: profile.userId
-  }
+  };
 
-  return cognitoIdentityServiceProvider
-    .adminUpdateUserAttributes(params).promise()
+  return await cognitoIdentityServiceProvider
+    .adminUpdateUserAttributes(params).promise();
 }
 
-const saveOrUpdateUser = (profile) => {
+const saveOrUpdateUser = async (profile: any) => {
   const params = {
-    UserPoolId: process.env.USER_POOL_ID,
+    UserPoolId: process.env.USER_POOL_ID || '',
     Username: profile.userId
-  }
+  };
 
   return cognitoIdentityServiceProvider
     .adminGetUser(params).promise()
