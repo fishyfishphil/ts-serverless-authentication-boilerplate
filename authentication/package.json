@@ -8,12 +8,12 @@
     "serverless-authentication-facebook": "^0.6.0",
     "serverless-authentication-google": "^0.6.0",
     "serverless-authentication-microsoft": "^0.6.0",
-    "ts-serverless-authentication": "^0.6.10"
+    "ts-serverless-authentication": "^0.6.19"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/js-yaml": "^3.12.5",
-    "@types/node": "^14.6.2",
+    "@types/node": "^14.11.2",
     "chalk": "^2.4.1",
     "js-yaml": "^3.14.0",
     "lodash": "^4.17.20"

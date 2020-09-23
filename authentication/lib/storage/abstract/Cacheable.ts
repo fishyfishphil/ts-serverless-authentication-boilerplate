@@ -8,4 +8,4 @@ export abstract class Cacheable implements ICacheable {
 	abstract revokeState(state: string): Promise<string> | string;
 	abstract saveRefreshToken(user: string, payload: object): Promise<string> | string;
 	abstract revokeRefreshToken(oldToken: string): Promise<TokenPayload> | TokenPayload;
-} 
+}
